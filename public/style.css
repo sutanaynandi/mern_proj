@@ -1,0 +1,44 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
+*
+{
+    font-family: 'Quicksand';
+    background-color: rgb(234, 106, 106);
+}
+.nav{
+    margin-top: 15px;
+}
+.nav-link
+{
+    color:rgb(255, 255, 255);
+}
+.nav-link:active
+{
+    text-decoration: underline;
+    text-underline-position: under;
+}
+.nav-link:hover
+{
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+    color: rgb(18, 18, 18);
+}
+.search
+{
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    margin-left: 40px;
+}
+.card-body, .card-title
+{
+    color: rgb(0, 0, 0);
+}
+.card-text
+{
+    background-color: rgb(234, 106, 106);
+}
+.card
+{
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+}
+.facebook, .google
+{
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}

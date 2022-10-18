@@ -1,0 +1,103 @@
+<%- include('./partial/header.ejs') -%>
+<div class="tools">
+    <button onclick="execCmd('bold');"><i class="fa-sharp fa-solid fa-bold"></i></button>
+    <button onclick="execCmd('italic');"><i class="fa-sharp fa-solid fa-italic"></i></button>
+    <button onclick="execCmd('underline');"><i class="fa-sharp fa-solid fa-underline"></i></button>
+    <button onclick="execCmd('strikethrough');"><i class="fa-sharp fa-solid fa-strikethrough"></i></button>
+    <button onclick="execCmd('justifyLeft');"><i class="fa-sharp fa-solid fa-align-left"></i></button>
+    <button onclick="execCmd('justifyCenter');"><i class="fa-sharp fa-solid fa-align-center"></i></button>
+    <button onclick="execCmd('justifyRight');"><i class="fa-sharp fa-solid fa-align-right"></i></button>
+    <button onclick="execCmd('justifyFull');"><i class="fa-sharp fa-solid fa-align-justify"></i></button>
+    <button onclick="execCmd('cut');"><i class="fa-sharp fa-solid fa-cut"></i></button>
+    <button onclick="execCmd('copy');"><i class="fa-sharp fa-solid fa-copy"></i></button>
+    <button onclick="execCmd('paste');"><i class="fa-sharp fa-solid fa-paste"></i></button>
+    <button onclick="execCmd('indent');"><i class="fa-sharp fa-solid fa-indent"></i></button>
+    <button onclick="execCmd('outdent');"><i class="fa-sharp fa-solid fa-dedent"></i></button>
+    <button onclick="execCmd('subscript');"><i class="fa-sharp fa-solid fa-subscript"></i></button>
+    <button onclick="execCmd('superscript');"><i class="fa-sharp fa-solid fa-superscript"></i></button>
+    <button onclick="execCmd('undo');"><i class="fa-sharp fa-solid fa-undo"></i></button>
+    <button onclick="execCmd('redo');"><i class="fa-sharp fa-solid fa-repeat"></i></button>
+    <button onclick="execCmd('insertUnorderedList');"><i class="fa-sharp fa-solid fa-list-ul"></i></button>
+    <button onclick="execCmd('insertOrderedList');"><i class="fa-sharp fa-solid fa-list-ol"></i></button>
+    <button onclick="execCmd('insertParagraph');"><i class="fa-sharp fa-solid fa-paragraph"></i></button>
+    <select onchange="execCommandWithArg('formatBloc',this.value);">
+        <option value="H1">H1</option>
+        <option value="H2">H2</option>
+        <option value="H3">H3</option>
+        <option value="H4">H4</option>
+        <option value="H5">H5</option>
+        <option value="H6">H6</option>
+    </select>
+    <button onclick="execCmd('insertHorizontalRule');">HR</button>
+    <button onclick="execCmd('createLink', prompt('Enter a url', 'http://'));"><i class="fa-sharp fa-solid fa-link"></i></button>
+    <button onclick="execCmd('unLink');"><i class="fa-sharp fa-solid fa-unlink"></i></button>
+    <button onclick="toggleSource();"><i class="fa-sharp fa-solid fa-code"></i></button>
+    <button onclick="toggleEdit();">Toggle Edit</button>
+    <select onchange="execCommandWithArg('formatName',this.value);">
+        <option value="Arial">Arial</option>
+        <option value="Helvetica">Helvetica</option>
+        <option value="Comic Sans">Comic Sans</option>
+        <option value="New Times Roman">New Times Roman</option>
+        <option value="Sans Serif">Sans Serif</option>
+        <option value="Serif">Serif</option>
+        <option value="Gotham">Gotham</option>
+    </select>
+    <select onchange="execCommandWithArg('fontSize',this.value);">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+    </select>
+    Fore Color: <input type="color" onchange="execCommandWithArg('foreColor',this.value);">
+    Background: <input type="color" onchange="execCommandWithArg('hiliteColor',this.value);">
+    <button onclick="execCommandWithArg('insertImage',prompt('Enter image url',''));"><i class="fa fa-file-image-o"></i></button>
+    <button onclick="execCmd('selectAll');">Select All</button>
+</div>
+<iframe name="richTextField"  ></iframe>
+<script type="text/javascript">
+
+    let showingSourceCode = false;
+    let isInEditMode = true;
+
+    function enableEditMode() {
+        richTextField.document.designMode = 'On';
+    }
+    function execCmd(command) {
+        richTextField.document.execCommand(command,false,null);
+    }
+    function execCommandWithArg(command, arg)
+    {
+        richTextField.document.execCommand(command, false, arg);
+    }
+    enableEditMode();
+    function toggleSource() {
+
+        if(showingSourceCode)
+        {
+            richTextField.document.getElementsByTagName('body')[0].innerHTML = richTextField.document.getElementsByTagName('body')[0].textContent;
+            showingSourceCode = false;
+        }
+        else
+        {
+            richTextField.document.getElementsByTagName('body')[0].textContent = richTextField.document.getElementsByTagName('body')[0].innerHTML;
+            showingSourceCode = true;
+        }
+
+    }
+    function toggleEdit(){
+        if(isInEditMode)
+        {
+            richTextField.document.designMode = 'Off';
+            isInEditMode = false;
+        }
+        else
+        {
+            enableEditMode();
+            isInEditMode = true;
+        }
+    }
+</script>
+<%- include('./partial/footer.ejs') -%>

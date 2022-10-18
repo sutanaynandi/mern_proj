@@ -1,0 +1,23 @@
+<div>
+<div id="reporterButton"><button id="report" data-rep="<%= blog._id %>">Report Post</button></div>
+    <div class="message"></div>
+</div>
+
+<script>
+    let report = document.querySelector('#report');
+    report.addEventListener('click',(e)=>{
+        fetch(`/report/${report.dataset.rep}`,{
+            method: 'GET'
+        }).then(response =>{
+            console.log(response)
+            return response.json();
+        }).then(ans =>{
+            let msg = document.querySelector('.message');
+            msg.textContent = ans;
+            let B = document.querySelector('#reporterButton');
+            B.innerHTML = null;
+        }).catch(e =>{
+            console.log("Oh no!");
+        })
+    })
+</script>

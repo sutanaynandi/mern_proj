@@ -1,0 +1,8 @@
+<%- include('./partial/header.ejs') -%>
+<h1><%= B.title %> </h1>
+<h2><%= B.author %></h2>
+<div id="textBody">
+    <%- B.body %>
+</div>
+<img src="/uploads/images/<%= B.image %>" alt="" style="height: 60px;width: 60px;">
+<%- include('./partial/footer.ejs') -%>

@@ -1,0 +1,46 @@
+<%- include('./partial/header.ejs') -%>
+<%- include('./partial/Navbar.ejs') -%>
+<h2 style="width: 100%; text-align: center;color:aliceblue; padding-top: 40px; margin-bottom: 0px;">Add Blog</h2>
+<script>
+    tinymce.init({
+       selector: '#mytextarea',
+       plugins: [
+         'a11ychecker','advlist','advcode','advtable','autolink','checklist','export',
+         'lists','link','image','charmap','preview','anchor','searchreplace','visualblocks',
+         'powerpaste','fullscreen','formatpainter','insertdatetime','media','table','help','wordcount'
+       ],
+       toolbar: 'undo redo | formatpainter casechange blocks | bold italic backcolor | ' +
+         'alignleft aligncenter alignright alignjustify | ' +
+         'bullist numlist checklist outdent indent | removeformat | a11ycheck code table help'
+     });
+   </script>
+<form action="/addBlog" method="post" enctype="multipart/form-data" style="padding-top: 20px;">
+  <div style="display:block;text-align:center; color:aliceblue">
+    <label for=""><h4 style="padding-right: 15px;">Title</h4></label>
+    <input type="text" name="title" id="" required style="width: 500px; background-color:aliceblue" placeholder="Title">
+  </div>
+    
+    <div style="display:block;width: 600px;margin: 0 auto;text-align: center; color: aliceblue;">
+    <label for=""><h4>Description</h4></label>
+<textarea name="body" id="mytextarea"></textarea>
+    </div>
+<label for=""style="display:block;text-align:center; color:aliceblue; padding-top: 40px;"><h4>Image Upload</h4></label>
+<input type="file" name="image" id="imageInput"multiple style="display: block; margin:20px auto; text-align:center">
+<div id="displayPreview" class="img-fluid" style="width: 375px; margin: 0 auto;background-position: center;background-size: cover;"></div>
+<button type="submit"class="btn btn-outline-warning" style="display: block; margin: 0 auto;text-align:center">Submit</button>
+</form>
+
+<script>
+const imageInput = document.querySelector('#imageInput');
+let uploadedImage = "";
+imageInput.addEventListener('change',function(){
+  const reader = new FileReader();
+  reader.addEventListener('load',()=>{
+    uploadedImage = reader.result;
+    document.querySelector('#displayPreview').style.backgroundImage = `url(${uploadedImage})`;
+    document.querySelector('#displayPreview').style.height = "211px";
+  });
+  reader.readAsDataURL(this.files[0]);
+})
+</script>
+<%- include('./partial/footer.ejs') -%>

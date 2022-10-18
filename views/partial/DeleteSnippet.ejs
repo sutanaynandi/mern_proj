@@ -1,0 +1,32 @@
+<script>
+    const del = document.querySelector('.del');
+
+
+
+    del.addEventListener('click',async(e) =>{
+       let response = await fetch(`/blogs/${del.dataset.doc}`,{
+            method:'DELETE'
+        });
+        window.location.href = '/myPosts';
+    });
+
+
+    
+
+
+
+
+    document.addEventListener('click',userClicked);
+    async function userClicked(evt)
+    {
+        if(evt.target.classList.contains('del'))
+        {
+            let response = await fetch(`/blogs/${del.dataset.doc}`,{
+            method:'DELETE'
+        });
+        window.location.href = '/myPosts';
+        }
+
+    }
+    
+</script>

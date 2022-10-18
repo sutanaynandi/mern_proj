@@ -1,0 +1,70 @@
+<%- include('./partial/header.ejs') -%>
+<%- include('./partial/Navbar.ejs') -%>
+    <h2 style="display: block;text-align: center;padding-top:40px;padding-bottom: 40px;color: aliceblue;">Sign Up</h2>
+<div class="card" style="width: 400px;margin: 40px auto; background-color: rgb(234,106,106); padding-bottom: 20px; padding-top: 20px;">
+    <form class="signer">
+        <label for="" style="display: block; text-align: center;color:aliceblue">Name</label>
+        <input type="text" name="name" id="" required style="display: block;margin: 0 auto; background-color: aliceblue;margin-bottom: 10px;">
+        <div class="Errors" id="nameError" style="margin:0 auto; color:rgb(0,0,0)"></div>
+        <label for="" style="display: block; text-align: center;color:aliceblue">email</label>
+        <input type="email" name="email" id="" required style="display: block;margin: 0 auto; background-color: aliceblue;margin-bottom: 10px;">
+        <div class="Errors" id="emailError" style="margin:0 auto; color:rgb(0,0,0)"></div>
+        <label for="" style="display: block; text-align: center;color:aliceblue">Password</label>
+        <input type="password" name="password" id="" required style="display: block;margin: 0 auto; background-color: aliceblue;margin-bottom: 10px;">
+        <div class="Errors" id="passwordError" style="margin:0 auto; color:rgb(0,0,0)"></div>
+        <button id="submit" class="btn btn-outline-warning" style="display: block; margin: 0 auto;text-align:center">Submit</button>
+    </form>
+</div>
+    <h2 style="display: block;text-align: center;padding-top:40px;padding-bottom: 10px;background-color:rgb(253, 253, 253);">OR</h2>
+    <div class="oauth" style="display: block; margin: 40px auto;text-align: center;background-color:rgb(253, 253, 253);padding-bottom: 50px;">
+        <a href="/google"><button class="google btn-success">Google+</button></a>
+        <a href="/facebook"><button class="fb btn-primary">Facebook</button></a>
+    </div>
+    <script>
+        const form=document.querySelector('.signer');
+        const pwdError=document.querySelector('#passwordError');
+        const emailError=document.querySelector('#emailError');
+        const nameError=document.querySelector('#nameError');
+        
+        form.addEventListener('submit',(e)=>{
+            e.preventDefault();
+            const name=form.name.value;
+            const email=form.email.value;
+            const password=form.password.value;
+            fetch('/signup',{
+                method:'POST',
+                body:JSON.stringify({name:name,email:email,password:password}),
+                headers:{'Content-type':'application/json'}
+                
+            }).then(response=>{
+                emailError.textContent="";
+                 nameError.textContent="";
+                  pwdError.textContent="";
+                return response.json();
+
+            }).then(d=>{
+
+                if(d)
+                {
+                    if(d._id)
+                    window.location.href='/login';
+                    if(d.code==11000)
+                    {
+                        emailError.textContent="This email exists";
+                    }
+                    else if(d.err.details[0].message.includes("password"))
+                    pwdError.textContent="Min length is 4 characters";
+                    else if(d.err.details[0].message.includes("email"))
+                    emailError.textContent="This email already exists";
+                    else if(d.err.details[0].message.includes("name"))
+                    nameError.textContent="This ain't a name";
+                    else
+                    window.location.href='/login';
+                }
+                else
+                window.location.href='/login';
+            }).catch(err=>console.log('this',err));
+        });
+
+    </script>
+<%- include('./partial/footer.ejs') -%>

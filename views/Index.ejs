@@ -1,0 +1,31 @@
+<%- include('partial/header.ejs') -%>
+<%- include('./partial/Navbar.ejs') -%>
+<% if(!blogs[0]) { %>
+  <h5 style="margin: 0 auto;padding: 25%; text-align: center;">No Posts yet!</h5>
+  <% } %>
+  <% if(blogs[0]) { %>  
+<div class="container-fluid" style="background-color: rgb(236,106,106); padding-top: 20px; width: 100%;">
+<div class="row">
+  <% blogs.forEach((blog)=>{ %>
+    <a href='/blogs/<%= blog._id %>'class="card" style="width: 18rem; margin: 0 auto;">
+     <% if(blog.image[0]) { %>
+      <img src="/uploads/images/<%= blog.image[0] %>" class="card-img-top">
+      <% } %>
+      <div class="card-body">
+        <h5 class="card-title"><%= blog.title %></h5>
+          <div class="card-text">
+            <% if(blog.body) { %>
+            <%- blog.body -%>
+            <% } %>
+          <p style="text-align: end;">By <%= blog.author %></p>
+          <p style="text-align: end;">Likes: <%= blog.likes %></p>
+          </div>
+          
+      </div>
+
+    </a>
+    <% }) %>
+</div>
+</div>
+<% } %>
+<%- include('partial/footer.ejs') -%>
